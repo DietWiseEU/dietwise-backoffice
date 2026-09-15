@@ -8,7 +8,7 @@ import {
 	type Language,
 	LANGUAGES,
 	type Recommendation,
-	type RecommendationWeight,
+	type TypeOfRecommendation,
 	fetchRecommendations,
 	fetchRecommendationTranslations,
 	revertMaster,
@@ -36,8 +36,14 @@ const MASTER_FIELD_MAX_LENGTHS: Record<MasterField, number> = {
 
 type MasterDraft = { explanation: string; humanFriendlyDisplay: string };
 
-function WeightIcon({ weight, label }: { weight: RecommendationWeight; label: string }) {
-	const encouraged = weight === 'ENCOURAGED';
+function TypeOfRecommendationIcon({
+	typeOfRecommendation,
+	label,
+}: {
+	typeOfRecommendation: TypeOfRecommendation;
+	label: string;
+}) {
+	const encouraged = typeOfRecommendation === 'ENCOURAGED';
 	return (
 		<span role="img" aria-label={label} title={label} className="inline-flex text-lg">
 			{encouraged ? (
@@ -168,7 +174,7 @@ export function RecommendationsPage() {
 					<thead>
 						<tr>
 							<th className="w-8 px-1 py-4 text-center">
-								<span className="sr-only">{t('recommendations.columnWeight')}</span>
+								<span className="sr-only">{t('recommendations.columnTypeOfRecommendation')}</span>
 							</th>
 							<th className="px-1 py-4">{t('recommendations.columnName')}</th>
 							<th className="px-1 py-4">{t('recommendations.columnComponent')}</th>
@@ -188,12 +194,12 @@ export function RecommendationsPage() {
 							return (
 								<tr key={recommendation.id}>
 									<td className="px-1 py-1 text-center">
-										<WeightIcon
-											weight={recommendation.weight}
+										<TypeOfRecommendationIcon
+											typeOfRecommendation={recommendation.typeOfRecommendation}
 											label={
-												recommendation.weight === 'ENCOURAGED'
-													? t('recommendations.weightEncouraged')
-													: t('recommendations.weightLimited')
+												recommendation.typeOfRecommendation === 'ENCOURAGED'
+													? t('recommendations.typeOfRecommendationEncouraged')
+													: t('recommendations.typeOfRecommendationLimited')
 											}
 										/>
 									</td>

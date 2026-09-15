@@ -5,7 +5,7 @@ import {
 	type ReferenceOption,
 	type TranslationState,
 } from '@/components/referenceData';
-import { type RecommendationWeight } from '@/recommendations/recommendations';
+import { type TypeOfRecommendation } from '@/recommendations/recommendations';
 
 /** The editable details of a shared AlternativeIngredient plus its blast radius — the number of Suggestion Templates,
  * across all Rules, that reference it and would see the edit. Structurally a {@link ReferenceDetails} so it can pre-fill
@@ -102,7 +102,7 @@ export function revertAlternativeIngredientTranslation(id: string, lang: Languag
 export interface RecommendationColumn {
 	id: string;
 	componentForScoring: string;
-	weight: RecommendationWeight;
+	typeOfRecommendation: TypeOfRecommendation;
 }
 
 /** One AlternativeIngredient row of the substitution-value grid: its effective name, whether a published master row

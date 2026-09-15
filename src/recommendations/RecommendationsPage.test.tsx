@@ -48,7 +48,7 @@ const LIMITED_RECOMMENDATION: Recommendation = {
 	id: '1',
 	name: 'Decrease processed meat',
 	componentForScoring: 'processed meat',
-	weight: 'LIMITED',
+	typeOfRecommendation: 'LIMITED',
 	explanationForLlm: 'Cured and smoked red meat.',
 	explanationChanged: false,
 	humanFriendlyDisplay: 'Processed meat',
@@ -61,7 +61,7 @@ const ENCOURAGED_RECOMMENDATION: Recommendation = {
 	id: '2',
 	name: 'Increase legumes',
 	componentForScoring: 'legumes',
-	weight: 'ENCOURAGED',
+	typeOfRecommendation: 'ENCOURAGED',
 	explanationForLlm: null,
 	explanationChanged: false,
 	humanFriendlyDisplay: null,
@@ -105,8 +105,8 @@ describe('RecommendationsPage', () => {
 
 		render(<RecommendationsPage />);
 
-		expect(await screen.findByLabelText('recommendations.weightLimited')).not.toBeNull();
-		expect(screen.getByLabelText('recommendations.weightEncouraged')).not.toBeNull();
+		expect(await screen.findByLabelText('recommendations.typeOfRecommendationLimited')).not.toBeNull();
+		expect(screen.getByLabelText('recommendations.typeOfRecommendationEncouraged')).not.toBeNull();
 	});
 
 	it('shows an empty editable explanation and human friendly display for a recommendation without them', async () => {

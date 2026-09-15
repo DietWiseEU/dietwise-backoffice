@@ -42,9 +42,9 @@ const fetchAlternativeIngredientMock = vi.mocked(fetchAlternativeIngredient);
 // Tofu: Working-Copy-only, a staged addition to whole grains (a green pending-add cell), discardable.
 const gridFixture = (): RecommendationGrid => ({
 	columns: [
-		{ id: 'rec-legumes', componentForScoring: 'legumes', weight: 'ENCOURAGED' },
-		{ id: 'rec-processed-meat', componentForScoring: 'processed meat', weight: 'LIMITED' },
-		{ id: 'rec-grains', componentForScoring: 'whole grains', weight: 'ENCOURAGED' },
+		{ id: 'rec-legumes', componentForScoring: 'legumes', typeOfRecommendation: 'ENCOURAGED' },
+		{ id: 'rec-processed-meat', componentForScoring: 'processed meat', typeOfRecommendation: 'LIMITED' },
+		{ id: 'rec-grains', componentForScoring: 'whole grains', typeOfRecommendation: 'ENCOURAGED' },
 	],
 	ingredients: [
 		{

@@ -6,13 +6,13 @@ export const LANGUAGES: Language[] = ['EL', 'LT', 'NL'];
 
 export type TranslationState = 'MISSING' | 'PARTIAL' | 'PRESENT' | 'PARTIAL_STAGED' | 'STAGED';
 
-export type RecommendationWeight = 'ENCOURAGED' | 'LIMITED';
+export type TypeOfRecommendation = 'ENCOURAGED' | 'LIMITED';
 
 export interface Recommendation {
 	id: string;
 	name: string;
 	componentForScoring: string;
-	weight: RecommendationWeight;
+	typeOfRecommendation: TypeOfRecommendation;
 	/** Effective English explanation for the LLM (published master overlaid by any Staged Change); may be empty. */
 	explanationForLlm: string | null;
 	/** Whether the explanation differs from published master because of a Staged Change. */

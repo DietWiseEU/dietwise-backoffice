@@ -47,8 +47,8 @@ function cellClass({ pendingAdd, pendingRemove }: CellState): string {
 }
 
 // The sign tells apart the components that raise a recipe's score (+, ENCOURAGED) from those that lower it (-, LIMITED).
-function columnSign({ weight }: RecommendationColumn): string {
-	return weight === 'LIMITED' ? '-' : '+';
+function columnSign({ typeOfRecommendation }: RecommendationColumn): string {
+	return typeOfRecommendation === 'LIMITED' ? '-' : '+';
 }
 
 export function SubstitutionValuePage() {
@@ -205,7 +205,7 @@ export function SubstitutionValuePage() {
 								<th
 									key={column.id}
 									className="px-1 py-4 text-center align-bottom"
-									title={`${column.componentForScoring}: ${column.weight}`}
+									title={`${column.componentForScoring}: ${column.typeOfRecommendation}`}
 								>
 									{`${columnSign(column)} ${column.componentForScoring}`}
 								</th>
