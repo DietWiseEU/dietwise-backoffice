@@ -8,6 +8,7 @@ import { RecommendationsPage } from '@/recommendations/RecommendationsPage';
 import { RulesPage } from '@/rules/RulesPage';
 import { SeasonalityCostPage } from '@/seasonalityCost/SeasonalityCostPage';
 import { SubstitutionValuePage } from '@/alternativeIngredients/SubstitutionValuePage';
+import { TriggerIngredientComponentsPage } from '@/triggerIngredients/TriggerIngredientComponentsPage';
 
 export const router = createBrowserRouter(
 	[
@@ -41,6 +42,14 @@ export const router = createBrowserRouter(
 					element: (
 						<RequireBackofficeRole>
 							<SubstitutionValuePage />
+						</RequireBackofficeRole>
+					),
+				},
+				{
+					path: 'trigger-ingredient-components',
+					element: (
+						<RequireBackofficeRole>
+							<TriggerIngredientComponentsPage />
 						</RequireBackofficeRole>
 					),
 				},

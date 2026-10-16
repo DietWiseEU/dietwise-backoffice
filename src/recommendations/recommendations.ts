@@ -8,6 +8,15 @@ export type TranslationState = 'MISSING' | 'PARTIAL' | 'PRESENT' | 'PARTIAL_STAG
 
 export type TypeOfRecommendation = 'ENCOURAGED' | 'LIMITED';
 
+/** One column of a grid of links to Recommendations (e.g. the substitution-value grid of the AlternativeIngredients):
+ * a Recommendation whose component for scoring a row can carry, labelled in the header by that component. Carrying an
+ * ENCOURAGED component raises a recipe's score, carrying a LIMITED one lowers it. */
+export interface RecommendationColumn {
+	id: string;
+	componentForScoring: string;
+	typeOfRecommendation: TypeOfRecommendation;
+}
+
 export interface Recommendation {
 	id: string;
 	name: string;

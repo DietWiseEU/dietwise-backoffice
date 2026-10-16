@@ -5,7 +5,7 @@ import {
 	type ReferenceOption,
 	type TranslationState,
 } from '@/components/referenceData';
-import { type TypeOfRecommendation } from '@/recommendations/recommendations';
+import { type RecommendationColumn } from '@/recommendations/recommendations';
 
 /** The editable details of a shared AlternativeIngredient plus its blast radius — the number of Suggestion Templates,
  * across all Rules, that reference it and would see the edit. Structurally a {@link ReferenceDetails} so it can pre-fill
@@ -94,15 +94,6 @@ export function revertAlternativeIngredientTranslation(id: string, lang: Languag
 	return apiFetch<void>(`/rules/alternative-ingredients/${id}/translations/${lang}?baseVersion=${baseVersion}`, {
 		method: 'DELETE',
 	});
-}
-
-/** One column of the substitution-value grid: a Recommendation whose component for scoring an AlternativeIngredient
- * can carry, labelled in the header by that component. Carrying an ENCOURAGED component raises a recipe's score,
- * carrying a LIMITED one lowers it. */
-export interface RecommendationColumn {
-	id: string;
-	componentForScoring: string;
-	typeOfRecommendation: TypeOfRecommendation;
 }
 
 /** One AlternativeIngredient row of the substitution-value grid: its effective name, whether a published master row

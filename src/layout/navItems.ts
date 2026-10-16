@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react';
-import { FiAward, FiCalendar, FiGrid, FiHome, FiList } from 'react-icons/fi';
+import { FiAward, FiCalendar, FiGrid, FiHome, FiList, FiTarget } from 'react-icons/fi';
 
 export interface NavItem {
 	to: string;
@@ -15,5 +15,6 @@ export const navItems: NavItem[] = [
 	{ to: '/rules', labelKey: 'nav.rules', icon: FiList },
 	{ to: '/recommendations', labelKey: 'nav.recommendations', icon: FiAward },
 	{ to: '/substitution-value', labelKey: 'nav.substitutionValue', icon: FiGrid },
+	{ to: '/trigger-ingredient-components', labelKey: 'nav.triggerIngredientComponents', icon: FiTarget },
 	{ to: '/seasonality-cost', labelKey: 'nav.seasonalityCost', icon: FiCalendar },
 ];

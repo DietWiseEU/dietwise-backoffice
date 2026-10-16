@@ -7,6 +7,7 @@
 		"rules": "Rules",
 		"recommendations": "Recommendations",
 		"substitutionValue": "Substitution Value",
+		"triggerIngredientComponents": "Trigger Ingredient Components",
 		"seasonalityCost": "Seasonality & Cost"
 	},
 	"auth": {
@@ -134,6 +135,27 @@
 		"addPlaceholder": "New alternative ingredient…",
 		"add": "Add",
 		"duplicateName": "An alternative ingredient with this name already exists.",
+		"staleReload": "Someone changed this since you loaded it. The grid was refreshed — please redo your edit."
+	},
+	"triggerIngredients": {
+		"title": "Trigger Ingredient Components",
+		"loading": "Loading trigger ingredient components…",
+		"loadError": "Could not load the trigger ingredient components. Please try again.",
+		"columnName": "Trigger Ingredient",
+		"columnTranslations": "Translations",
+		"toggleCell": "Toggle",
+		"lockedByRule": "assigned by a rule, always counted",
+		"newBadge": "New",
+		"pendingBadge": "Pending",
+		"scoringOnlyBadge": "Scoring only",
+		"scoringOnlyHint": "No active rule: this trigger ingredient suggests no alternatives and only contributes its components to the score of a recipe.",
+		"editTriggerIngredient": "Edit Trigger Ingredient",
+		"editTriggerTranslations": "Edit Trigger Ingredient translations",
+		"editTranslations": "Edit translations of",
+		"addLabel": "New trigger ingredient name",
+		"addPlaceholder": "New trigger ingredient…",
+		"add": "Add",
+		"duplicateName": "A trigger ingredient with this name already exists.",
 		"staleReload": "Someone changed this since you loaded it. The grid was refreshed — please redo your edit."
 	},
 	"seasonalityCost": {
