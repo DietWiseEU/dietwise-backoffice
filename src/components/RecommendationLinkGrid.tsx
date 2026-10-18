@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react';
 import { FiX } from 'react-icons/fi';
+import { TypeOfRecommendationIcon } from '@/components/TypeOfRecommendationIcon';
 
 /** One column of a grid of links to Recommendations, labelled in the header by the Recommendation's component for
  * scoring. An ENCOURAGED component raises a recipe's score, a LIMITED one lowers it. */
@@ -71,9 +72,16 @@ function cellClass({ pendingAdd, pendingRemove, locked }: CellState): string {
 	return base;
 }
 
-// The sign tells apart the components that raise a recipe's score (+, ENCOURAGED) from those that lower it (-, LIMITED).
-function columnSign({ typeOfRecommendation }: RecommendationLinkColumn): string {
-	return typeOfRecommendation === 'LIMITED' ? '-' : '+';
+// Short header labels for the components for scoring whose names would make their column disproportionately wide; the
+// full name stays in the header's title and the cells' labels. Keyed by the English master value.
+const COMPONENT_ABBREVIATIONS: Record<string, string> = {
+	'omega-6 polyunsaturated fatty acids': 'omega-6',
+	'seafood omega-3 fatty acids': 'omega-3',
+	'sugar-sweetened beverages': 'sugar beverages',
+};
+
+function columnLabel({ componentForScoring }: RecommendationLinkColumn): string {
+	return COMPONENT_ABBREVIATIONS[componentForScoring] ?? componentForScoring;
 }
 
 /**
@@ -109,7 +117,13 @@ export function RecommendationLinkGrid<R extends RecommendationLinkRow>({
 							className="px-1 py-4 text-center align-bottom"
 							title={`${column.componentForScoring}: ${column.typeOfRecommendation}`}
 						>
-							{`${columnSign(column)} ${column.componentForScoring}`}
+							<span className="inline-flex items-end gap-1">
+								<TypeOfRecommendationIcon
+									typeOfRecommendation={column.typeOfRecommendation}
+									withTitle={false}
+								/>
+								{columnLabel(column)}
+							</span>
 						</th>
 					))}
 					{trailingColumns.map((column) => (

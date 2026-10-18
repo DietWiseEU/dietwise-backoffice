@@ -1,10 +1,12 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import {
 	type RecommendationLinkColumn,
 	type RecommendationLinkRow,
 	RecommendationLinkGrid,
 } from './RecommendationLinkGrid';
+
+vi.mock('react-i18next', () => ({ useTranslation: () => ({ t: (key: string) => key }) }));
 
 interface Row extends RecommendationLinkRow {
 	note: string;
@@ -25,10 +27,10 @@ const BEEF: Row = {
 	stagedRecommendationIds: ['rec-sodium', 'rec-vegetables'],
 };
 
-function renderGrid(onToggle = vi.fn(), lockedRecommendationIds?: (row: Row) => string[]) {
+function renderGrid(onToggle = vi.fn(), lockedRecommendationIds?: (row: Row) => string[], columns = COLUMNS) {
 	render(
 		<RecommendationLinkGrid
-			columns={COLUMNS}
+			columns={columns}
 			rows={[BEEF]}
 			nameHeader="Trigger Ingredient"
 			renderName={(row) => <span>{row.name}</span>}
@@ -44,11 +46,43 @@ function renderGrid(onToggle = vi.fn(), lockedRecommendationIds?: (row: Row) => 
 }
 
 describe('RecommendationLinkGrid', () => {
-	it('marks the encouraged column headers with a plus and the limited ones with a minus', () => {
+	it('marks the encouraged column headers with a thumbs-up and the limited ones with a thumbs-down', () => {
 		renderGrid();
 
-		expect(screen.getByText('+ vegetables').getAttribute('title')).toBe('vegetables: ENCOURAGED');
-		expect(screen.getByText('- red meat').getAttribute('title')).toBe('red meat: LIMITED');
+		const vegetables = screen.getByRole('columnheader', { name: /vegetables/ });
+		expect(vegetables.getAttribute('title')).toBe('vegetables: ENCOURAGED');
+		const vegetablesIcon = within(vegetables).getByLabelText('recommendations.typeOfRecommendationEncouraged');
+		expect(vegetablesIcon.getAttribute('title')).toBeNull();
+		const redMeat = screen.getByRole('columnheader', { name: /red meat/ });
+		expect(redMeat.getAttribute('title')).toBe('red meat: LIMITED');
+		expect(within(redMeat).getByLabelText('recommendations.typeOfRecommendationLimited')).not.toBeNull();
+	});
+
+	it('abbreviates the long components for scoring in the header, keeping the full name in the title', () => {
+		renderGrid(vi.fn(), undefined, [
+			{
+				id: 'rec-omega-6',
+				componentForScoring: 'omega-6 polyunsaturated fatty acids',
+				typeOfRecommendation: 'LIMITED',
+			},
+			{
+				id: 'rec-omega-3',
+				componentForScoring: 'seafood omega-3 fatty acids',
+				typeOfRecommendation: 'ENCOURAGED',
+			},
+			{ id: 'rec-sugar', componentForScoring: 'sugar-sweetened beverages', typeOfRecommendation: 'LIMITED' },
+		]);
+
+		expect(screen.getByText('omega-6').closest('th')?.getAttribute('title')).toBe(
+			'omega-6 polyunsaturated fatty acids: LIMITED',
+		);
+		expect(screen.getByText('omega-3').closest('th')?.getAttribute('title')).toBe(
+			'seafood omega-3 fatty acids: ENCOURAGED',
+		);
+		expect(screen.getByText('sugar beverages').closest('th')?.getAttribute('title')).toBe(
+			'sugar-sweetened beverages: LIMITED',
+		);
+		expect(screen.getByLabelText('Toggle Beef / omega-6 polyunsaturated fatty acids')).not.toBeNull();
 	});
 
 	it('renders the name, the leading and the trailing columns of each row', () => {

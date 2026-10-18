@@ -1,14 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
 import { ApiError } from '@/api/client';
 import { isTooLong, MAX_LENGTHS } from '@/api/fieldLimits';
 import { TooLongError } from '@/components/TooLongError';
+import { TypeOfRecommendationIcon } from '@/components/TypeOfRecommendationIcon';
 import {
 	type Language,
 	LANGUAGES,
 	type Recommendation,
-	type TypeOfRecommendation,
 	fetchRecommendations,
 	fetchRecommendationTranslations,
 	revertMaster,
@@ -35,25 +34,6 @@ const MASTER_FIELD_MAX_LENGTHS: Record<MasterField, number> = {
 };
 
 type MasterDraft = { explanation: string; humanFriendlyDisplay: string };
-
-function TypeOfRecommendationIcon({
-	typeOfRecommendation,
-	label,
-}: {
-	typeOfRecommendation: TypeOfRecommendation;
-	label: string;
-}) {
-	const encouraged = typeOfRecommendation === 'ENCOURAGED';
-	return (
-		<span role="img" aria-label={label} title={label} className="inline-flex text-lg">
-			{encouraged ? (
-				<FiThumbsUp className="text-success" aria-hidden />
-			) : (
-				<FiThumbsDown className="text-error" aria-hidden />
-			)}
-		</span>
-	);
-}
 
 export function RecommendationsPage() {
 	const { t } = useTranslation();
@@ -196,11 +176,6 @@ export function RecommendationsPage() {
 									<td className="px-1 py-1 text-center">
 										<TypeOfRecommendationIcon
 											typeOfRecommendation={recommendation.typeOfRecommendation}
-											label={
-												recommendation.typeOfRecommendation === 'ENCOURAGED'
-													? t('recommendations.typeOfRecommendationEncouraged')
-													: t('recommendations.typeOfRecommendationLimited')
-											}
 										/>
 									</td>
 									<td className="px-1 py-1">{recommendation.name}</td>

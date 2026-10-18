@@ -77,7 +77,7 @@ describe('TriggerIngredientComponentsPage', () => {
 	it('renders a cell per trigger ingredient and component, locking the components assigned by a rule', async () => {
 		render(<TriggerIngredientComponentsPage />);
 
-		expect(await screen.findByText('+ vegetables')).not.toBeNull();
+		expect(await screen.findByText('vegetables')).not.toBeNull();
 		const beefRedMeat = screen.getByLabelText('triggerIngredients.toggleCell Beef / red meat') as HTMLButtonElement;
 		expect(beefRedMeat.getAttribute('aria-pressed')).toBe('true');
 		expect(beefRedMeat.disabled).toBe(true);
@@ -91,7 +91,7 @@ describe('TriggerIngredientComponentsPage', () => {
 
 	it('badges a new trigger ingredient and one without rules', async () => {
 		render(<TriggerIngredientComponentsPage />);
-		await screen.findByText('+ vegetables');
+		await screen.findByText('vegetables');
 
 		expect(screen.getByText('triggerIngredients.newBadge')).not.toBeNull();
 		expect(screen.getAllByText('triggerIngredients.scoringOnlyBadge')).toHaveLength(1);
@@ -100,7 +100,7 @@ describe('TriggerIngredientComponentsPage', () => {
 	it('toggles a cell to the opposite presence and reloads', async () => {
 		toggleMock.mockResolvedValue(undefined);
 		render(<TriggerIngredientComponentsPage />);
-		await screen.findByText('+ vegetables');
+		await screen.findByText('vegetables');
 
 		fireEvent.click(screen.getByLabelText('triggerIngredients.toggleCell Beef / sodium'));
 
@@ -111,7 +111,7 @@ describe('TriggerIngredientComponentsPage', () => {
 	it('warns and reloads when the server refuses a toggle', async () => {
 		toggleMock.mockRejectedValue(new ApiError(409, 'assigned by a rule'));
 		render(<TriggerIngredientComponentsPage />);
-		await screen.findByText('+ vegetables');
+		await screen.findByText('vegetables');
 
 		fireEvent.click(screen.getByLabelText('triggerIngredients.toggleCell Beef / sodium'));
 
@@ -122,7 +122,7 @@ describe('TriggerIngredientComponentsPage', () => {
 	it('stages a new trigger ingredient and reloads', async () => {
 		createTriggerIngredientMock.mockResolvedValue({ id: 'ti-halloumi', name: 'Halloumi' });
 		render(<TriggerIngredientComponentsPage />);
-		await screen.findByText('+ vegetables');
+		await screen.findByText('vegetables');
 
 		fireEvent.change(screen.getByLabelText('triggerIngredients.addLabel'), { target: { value: 'Halloumi' } });
 		fireEvent.click(screen.getByText('triggerIngredients.add'));
@@ -133,7 +133,7 @@ describe('TriggerIngredientComponentsPage', () => {
 
 	it('opens the edit dialog from the name', async () => {
 		render(<TriggerIngredientComponentsPage />);
-		await screen.findByText('+ vegetables');
+		await screen.findByText('vegetables');
 
 		fireEvent.click(screen.getByLabelText('triggerIngredients.editTriggerIngredient Beef'));
 
@@ -142,7 +142,7 @@ describe('TriggerIngredientComponentsPage', () => {
 
 	it('opens the translations dialog from the chips', async () => {
 		render(<TriggerIngredientComponentsPage />);
-		await screen.findByText('+ vegetables');
+		await screen.findByText('vegetables');
 
 		fireEvent.click(screen.getByLabelText('triggerIngredients.editTranslations Beef'));
 
